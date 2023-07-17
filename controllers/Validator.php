@@ -58,6 +58,12 @@
                     $this->addError($field, 'unique');
                 }
             }
+            else if ($rule === 'special_characters') {
+                if (preg_match('/[@#$%^&*():{}|<>]/', $value)) {
+                    $this->addError($field, 'special_characters');
+                }
+            }
+            
             
         }
 

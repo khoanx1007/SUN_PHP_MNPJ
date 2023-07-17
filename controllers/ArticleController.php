@@ -25,20 +25,23 @@ class ArticleController extends BaseController
             $target_dir="views/assets/images/thumbnail/";
             $upload = uploadFile('thumbnail' ,$target_dir , array ('jpg', 'jpeg', 'png', 'gif', 'webp'), 2);
             $rules = [
-                'title' => 'max:120|required',
-                'author' => 'required',
-                'description' => 'required',
+                'title' => 'special_characters|max:120|required',
+                'author' => 'special_characters|required',
+                'description' => 'special_characters|required',
             ];
             $messages = [
                 'title' => [
                     'required' => 'Tiêu đề không được để trống',
-                    'max' => 'Tiêu đề không quá 120 ký tự'
+                    'max' => 'Tiêu đề không quá 120 ký tự',
+                    'special_characters' => 'Tiêu đề không có ký tự đặc biệt',
                 ],
                 'author' => [
                     'required' => 'Tác giả không được để trống',
+                    'special_characters' => 'Tác giả không có ký tự đặc biệt',
                 ],
                 'description' => [
                     'required' => 'Mô tả không được để trống',
+                    'special_characters' => 'Mô tả không có ký tự đặc biệt',
                 ],
             ];
             $validator = new Validator($data, $rules, $messages);

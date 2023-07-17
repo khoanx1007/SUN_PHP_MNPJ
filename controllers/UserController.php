@@ -12,11 +12,13 @@ class UserController extends BaseController
     public function login(){
         if(isset($_SESSION['is_logged_in'])){
             $this->redirect('index.php?mod=article&act=index');
-            
         }   
         else 
         {   
-            $user = $this->mod_user->getUser($_COOKIE['remember_me_token']);
+            $user =  array();
+            if(isset($_COOKIE['remember_me_token'])){
+                $user = $this->mod_user->getUser($_COOKIE['remember_me_token']);
+            }
             $this->view('auth/login.php', [
                 'user' => $user,
             ]);
@@ -67,7 +69,7 @@ class UserController extends BaseController
                     }
                     else{
                         $rememberMeToken = base64_encode(random_bytes(32));
-                        setcookie('remember_me_token', $rememberMeToken, time() + 60*60*24);
+                        setcookie('remember_me_token', $rememberMeToken, time() + 10);
                         $this->mod_user->saveToken($email,$rememberMeToken);
                     }
                     $_SESSION['is_logged_in'] = true;
@@ -95,13 +97,14 @@ class UserController extends BaseController
     public function store(){
         $data = $_POST;
         $rules = [
-            'name' => 'required',
+            'name' => 'special_characters|required',
             'email' => 'email|unique|required',
             'password' => 'min:6|required',
         ];
         $messages = [
             'name' => [
                 'required' => 'Tên không được để trống',
+                'special_characters' => 'Tên không có ký tự đặc biệt',
             ],
             'email' => [
                 'required' => 'Email không được để trống',
