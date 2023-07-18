@@ -39,7 +39,7 @@
                     }
                 }
     
-                $query = "SELECT " . $sub_string . " FROM " . '`' . $table . '`'."ORDER BY id DESC";
+                $query = "SELECT " . $sub_string . " FROM " . '`' . $table . '`'."ORDER BY date DESC";
             }else{
                 exit();
             }
@@ -84,12 +84,12 @@
             foreach ($data as $column => $value){
                 $i++;
                 $string_1 .= $column;
-                if ($i != count($data)){ // Nếu không phải là cột cuối cùng thì mới thêm dấu ,
+                if ($i != count($data)){ 
                     $string_1 .= ',';
                 }
     
                 $string_2 .= "'" . $value . "'";
-                if ($i != count($data)){ // Nếu không phải là giá trị cuối cùng thì mới thêm dấu ,
+                if ($i != count($data)){ 
                     $string_2 .= ',';
                 }
             }

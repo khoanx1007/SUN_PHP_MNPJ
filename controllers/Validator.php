@@ -32,13 +32,6 @@
                 $this->addError($field, 'required');
             }
 
-            else if (strpos($rule, 'max:') !== false) {
-                $maxLength = explode(':', $rule)[1];
-                $wordCount = str_word_count($value);
-                if ($wordCount > $maxLength) {
-                    $this->addError($field, 'max');
-                }
-            }
             else if (strpos($rule, 'min:') !== false) {
                 $minLength = explode(':', $rule)[1];
                 if (strlen($value) < $minLength) {
@@ -46,6 +39,13 @@
                 }
             }
             
+            else if (strpos($rule, 'max:') !== false) {
+                $minLength = explode(':', $rule)[1];
+                if (strlen($value) > $minLength) {
+                    $this->addError($field, 'max');
+                }
+            }
+
             else if ($rule === 'email') {
                 if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
                     $this->addError($field, 'email');
@@ -58,6 +58,12 @@
                     $this->addError($field, 'unique');
                 }
             }
+            else if ($rule === 'special_characters') {
+                if (preg_match('/[@#$^&*{}|<>]/', $value)) {
+                    $this->addError($field, 'special_characters');
+                }
+            }
+            
             
         }
 
