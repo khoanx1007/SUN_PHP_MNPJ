@@ -40,7 +40,6 @@ class ArticleController extends BaseController
         public function store(){
             if(isset($_SESSION['is_logged_in'])){
                 $data = $_POST;
-                $thumbnail="";
                 $target_dir="views/assets/images/thumbnail/";
                 $upload = uploadFile('thumbnail' ,$target_dir , array ('jpg', 'jpeg', 'png', 'gif', 'webp'), 2);
                 $rules = [
