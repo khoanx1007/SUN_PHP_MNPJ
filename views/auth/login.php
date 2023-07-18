@@ -24,7 +24,7 @@
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Email</label>
                                 <input type="text" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                value="<?php echo isset($_SESSION['old_input']['email']) ? $_SESSION['old_input']['email'] : ''; ?>">
+                                value="<?php echo isset($_SESSION['old_input']['email']) ? $_SESSION['old_input']['email'] : (isset($user['email'])? $user['email'] : ''); ?>">
                                 <?php if (isset($_SESSION['errorMessages']['email'])): ?>
                                     <div class="text-danger"><?php echo $_SESSION['errorMessages']['email']; ?></div>
                                 <?php endif; ?>
